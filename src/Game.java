@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Game extends JPanel implements KeyListener{
@@ -20,6 +21,7 @@ public void paintComponent(Graphics g) {
 }
 
 
+
     
 public static void main(String[] args) {
     JFrame frame = new JFrame("Brick Breaker");
@@ -28,7 +30,28 @@ public static void main(String[] args) {
     frame.setSize(800, 600); //window size
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setVisible(true);
+    frame.addKeyListener(game); // listener added
+    game.setFocusable(true); // allow panel focus
        
     }
+
+
+@Override 
+public void keyPressed(KeyEvent e){
+    int key = e.getKeyCode();
+    if (key == KeyEvent.VK_LEFT && paddleX > 0){
+        paddleX -= 20; //left
+    }
+
+    if (key == KeyEvent.VK_RIGHT && paddleX < (getWidth()- paddleW)){
+        paddleX += 20; //right
+    }
+    repaint();
+
+}
+
+@Override public void keyTyped(KeyEvent e) {}
+@Override public void keyReleased(KeyEvent e) {}    
     
 }
+
